@@ -129,7 +129,7 @@ class TiledPlatform extends Phaser.Scene {
             this.scene.restart();
         }
         if(Phaser.Input.Keyboard.JustDown(this.swap)) {
-            this.scene.start("parallaxLayersScene");
+            this.scene.start("JoeyMapOneScene");
         }
     }
 }

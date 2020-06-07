@@ -53,7 +53,7 @@ class JoeyMapOne extends Phaser.Scene {
         this.coinGroup = this.add.group(this.coins);
 
         // set gravity and physics world bounds (so collideWorldBounds works)
-        this.physics.world.gravity.y = 1000;
+        this.physics.world.gravity.y = 1050;
         this.physics.world.bounds.setTo(0, 0, map.widthInPixels, map.heightInPixels);
 
         // create collider(s)/overlap(s)
