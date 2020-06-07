@@ -1,6 +1,6 @@
-class ParallaxLayers extends Phaser.Scene {
+class JoeyMapTwo extends Phaser.Scene {
     constructor() {
-        super("parallaxLayersScene");
+        super("JoeyMapTwoScene");
 
         // variables and settings
         this.ACCELERATION = 500;
@@ -13,23 +13,23 @@ class ParallaxLayers extends Phaser.Scene {
     preload() {
         // load assets
         this.load.path = "./assets/";
-        this.load.tilemapTiledJSON("parallax_map", "JoeyMap1.json");    // Tiled JSON file
+        this.load.tilemapTiledJSON("joey2_map", "Joeymap2.json");    // Tiled JSON file
     }
 
     create() {
-        console.log("8");
+        console.log("10");
         // add a tile map
-        const map = this.add.tilemap("parallax_map"); 
+        const map = this.add.tilemap("joey2_map"); 
         // add a tile set to the map
         const tileset = map.addTilesetImage("fullsheet_pack", "1bit_tiles");
         // create a static layer (ie, can't be modified)
-        // these have scroll factors set to create parallax layer scrolling
+        // these have scroll factors set to create JoeyMapTwo layer scrolling
         const bgLayer = map.createStaticLayer("Background", tileset, 0, 0).setScrollFactor(0.25);
         const sceneryLayer = map.createStaticLayer("Scenery", tileset, 0, 0).setScrollFactor(0.5);
         const groundLayer = map.createStaticLayer("Ground", tileset, 0, 0);
 
         // set map collision
-        groundLayer.setCollisionByProperty({ collides : true });
+        groundLayer.setCollisionByProperty({ collides: true });
 
         // create player
         const p1Spawn = map.findObject("Objects", obj => obj.name === "P1 Spawn");
@@ -101,7 +101,7 @@ class ParallaxLayers extends Phaser.Scene {
             this.scene.restart();
         }
         if(Phaser.Input.Keyboard.JustDown(this.swap)) {
-            this.scene.start("JoeyMapOneScene");
+            this.scene.start("spawnMapScene");
         }
     }
 }
