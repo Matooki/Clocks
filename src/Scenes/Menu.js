@@ -7,10 +7,11 @@ class Menu extends Phaser.Scene {
     {
         //this.load.audio('jump', './assets/Jump.wav');
         //this.load.audio('coin', './assets/coin.wav');
-        //this.load.audio('song', './assets/Clockwork_Confusion_test.wav');
+        this.load.audio('song', './assets/Clockwork_Confusion.wav');
     }
 
-    create() {
+    create()
+    {
         // display mennu
         let menuConfig = {
             fontFamily: 'fantasy',
@@ -38,7 +39,7 @@ class Menu extends Phaser.Scene {
         cursors = this.input.keyboard.createCursorKeys();
         //keyDOWN = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.Down);
 
-        //var music = this.sound.add('song');
+        music = this.sound.add('song');
 
         let musicconfig=
         {
@@ -51,11 +52,13 @@ class Menu extends Phaser.Scene {
             delay: 0   
         }
 
-        //music.play(musicconfig);
+        music.play(musicconfig);
     }
 
-   update() {
-        if (Phaser.Input.Keyboard.JustDown(this.swap)) {
+    update()
+    {
+        if (Phaser.Input.Keyboard.JustDown(this.swap))
+        {
             this.scene.start('tiledPlatformScene');
         }
     } 

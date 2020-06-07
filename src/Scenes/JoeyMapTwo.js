@@ -19,7 +19,7 @@ class JoeyMapTwo extends Phaser.Scene {
     create() {
         console.log("10");
         // add a tile map
-        const map = this.add.tilemap("joey2_map"); 
+        const map = this.add.tilemap("joey2_map");
         // add a tile set to the map
         const tileset = map.addTilesetImage("fullsheet_pack", "1bit_tiles");
         // create a static layer (ie, can't be modified)
@@ -101,7 +101,7 @@ class JoeyMapTwo extends Phaser.Scene {
             this.scene.restart();
         }
         if(Phaser.Input.Keyboard.JustDown(this.swap)) {
-            this.scene.start("spawnMapScene");
+            this.scene.start("creditsScene");
         }
     }
 }
