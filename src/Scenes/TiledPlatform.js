@@ -6,8 +6,8 @@ class TiledPlatform extends Phaser.Scene {
         this.ACCELERATION = 500;
         this.MAX_X_VEL = 200;   // pixels/second
         this.MAX_Y_VEL = 2000;
-        this.DRAG = 600;    
-        this.JUMP_VELOCITY = -650;
+        this.DRAG = 1000;    
+        this.JUMP_VELOCITY = -500;
     }
 
     preload() {
@@ -39,12 +39,12 @@ class TiledPlatform extends Phaser.Scene {
        groundLayer.setCollisionByProperty({ collides: true });
         
         // define a render debug so we can see the tilemap's collision bounds
-        const debugGraphics = this.add.graphics().setAlpha(0.75);
-        groundLayer.renderDebug(debugGraphics, {
-            tileColor: null,    // color of non-colliding tiles
-            collidingTileColor: new Phaser.Display.Color(243, 134, 48, 255),    // color of colliding tiles
-            faceColor: new Phaser.Display.Color(40, 39, 37, 255)                // color of colliding face edges
-        });
+        //const debugGraphics = this.add.graphics().setAlpha(0.75);
+        //groundLayer.renderDebug(debugGraphics, {
+            //tileColor: null,    // color of non-colliding tiles
+            //collidingTileColor: new Phaser.Display.Color(243, 134, 48, 255),    // color of colliding tiles
+            //faceColor: new Phaser.Display.Color(40, 39, 37, 255)                // color of colliding face edges
+        //});
 
         // setup player
         // place player on map from Tiled object layer data
@@ -77,7 +77,7 @@ class TiledPlatform extends Phaser.Scene {
         this.coinGroup = this.add.group(this.coins);
 
         // set gravity and physics world bounds (so collideWorldBounds works)
-        this.physics.world.gravity.y = 2000;
+        this.physics.world.gravity.y = 1000;
         this.physics.world.bounds.setTo(0, 0, map.widthInPixels, map.heightInPixels);
 
         // create collider(s)/overlap(s)
