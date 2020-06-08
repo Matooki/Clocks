@@ -104,15 +104,14 @@ class MapTwo extends Phaser.Scene
         // create collider(s)/overlap(s)
         this.physics.add.overlap(this.p1, this.doorGroup, (obj1, obj2) => {
             if(keyNum > 0){
-            obj2.destroy(); // remove coin on overlap
-            console.log("got");
+                obj2.destroy(); // remove coin on overlap
+                console.log("got");
+                keyNum-=1;
             }
             else{
                 this.physics.add.collider(this.p1, this.doorGroup);
             }
         });
-
-        
 
         //creates bottom half of sliding door
         this.slides = map.createFromObjects("Objects", "slide", {
@@ -214,9 +213,6 @@ class MapTwo extends Phaser.Scene
             this.scene.start("JoeyMapTwoScene");
         });
 
-
-        
-
         // setup camera
         this.cameras.main.setBounds(0, 0, map.widthInPixels, map.heightInPixels);
         this.cameras.main.startFollow(this.p1, true, 0.25, 0.25); // (target, [,roundPixels][,lerpX][,lerpY])
@@ -286,6 +282,7 @@ class MapTwo extends Phaser.Scene
             scalex=scalex/2;
             this.p1.scaleY=scaley;
             this.p1.scaleX=scalex;
+            this.sound.play('shrink');
         }
 
         if(Phaser.Input.Keyboard.JustDown(this.grow)&&scaley!=4)
@@ -294,8 +291,9 @@ class MapTwo extends Phaser.Scene
             scalex=scalex*2;
             this.p1.scaleY=scaley;
             this.p1.scaleX=scalex;
+            this.sound.play('grow');
         }
-        }
+    }
 
         //creating door function (doesn't work because of map not being defined here)
          /*createDoor(){

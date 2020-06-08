@@ -103,8 +103,9 @@ class TiledPlatform extends Phaser.Scene
         // create collider(s)/overlap(s)
         this.physics.add.overlap(this.p1, this.doorGroup, (obj1, obj2) => {
             if(keyNum > 0){
-            obj2.destroy(); // remove coin on overlap
-            console.log("got");
+                obj2.destroy(); // remove coin on overlap
+                console.log("got");
+                keyNum-=1;
             }
             else{
                 this.physics.add.collider(this.p1, this.doorGroup);
