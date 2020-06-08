@@ -7,6 +7,8 @@ class Menu extends Phaser.Scene {
     {
         this.load.audio('jump', './assets/Jump.wav');
         this.load.audio('key', './assets/key.wav');
+        this.load.audio('grow', './assets/Grow.wav');
+        this.load.audio('shrink', './assets/Shrink.wav');
         this.load.audio('song', './assets/Clockwork_Confusion.wav');
     }
 

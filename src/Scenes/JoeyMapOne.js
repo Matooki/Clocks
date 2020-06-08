@@ -163,6 +163,7 @@ class JoeyMapOne extends Phaser.Scene
             scalex=scalex/2;
             this.p1.scaleY=scaley;
             this.p1.scaleX=scalex;
+            this.sound.play('shrink');
         }
 
         if(Phaser.Input.Keyboard.JustDown(this.grow)&&scaley!=4)
@@ -171,6 +172,7 @@ class JoeyMapOne extends Phaser.Scene
             scalex=scalex*2;
             this.p1.scaleY=scaley;
             this.p1.scaleX=scalex;
-        }
+            this.sound.play('grow');
         }
     }
+}
