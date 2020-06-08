@@ -1,5 +1,7 @@
-class JoeyMapTwo extends Phaser.Scene {
-    constructor() {
+class JoeyMapTwo extends Phaser.Scene
+{
+    constructor()
+    {
         super("JoeyMapTwoScene");
 
         // variables and settings
@@ -10,13 +12,16 @@ class JoeyMapTwo extends Phaser.Scene {
         this.JUMP_VELOCITY = -500;
     }
 
-    preload() {
+    preload()
+    {
         // load assets
         this.load.path = "./assets/";
         this.load.tilemapTiledJSON("joey2_map", "Joeymap2.json");    // Tiled JSON file
     }
 
-    create() {
+    create()
+    {
+        let keyNum = 0;
         console.log("10");
         // add a tile map
         const map = this.add.tilemap("joey2_map");
@@ -44,7 +49,7 @@ class JoeyMapTwo extends Phaser.Scene {
         // generate coin objects from object data
         this.coins = map.createFromObjects("Objects", "coin", {
             key: "kenney_sheet",
-            frame: 214
+            frame: 7298
         }, this);
         this.physics.world.enable(this.coins, Phaser.Physics.Arcade.STATIC_BODY);
         // now use JS .map method to set a more accurate circle body on each sprite
@@ -62,6 +67,33 @@ class JoeyMapTwo extends Phaser.Scene {
         this.physics.add.collider(this.p1, groundLayer);
         this.physics.add.overlap(this.p1, this.coinGroup, (obj1, obj2) => {
             obj2.destroy(); // remove coin on overlap
+            keyNum++;
+            this.sound.play('key');
+        });
+
+        this.doors = map.createFromObjects("Objects", "door", {
+            key: "kenney_sheet",
+            frame: 8421
+        }, this);
+
+        this.physics.world.enable(this.doors, Phaser.Physics.Arcade.STATIC_BODY);
+        // now use JS .map method to set a more accurate circle body on each sprite
+        this.doors.map((door) => {
+            door.body.setCircle(4).setOffset(4, 4); 
+        });
+        // then add the coins to a group
+        this.doorGroup = this.add.group(this.doors);
+
+        // set gravity and physics world bounds (so collideWorldBounds works)
+        //this.physics.world.gravity.y = 1750;
+        //this.physics.world.bounds.setTo(0, 0, map.widthInPixels, map.heightInPixels);
+
+        // create collider(s)/overlap(s)
+        this.physics.add.overlap(this.p1, this.doorGroup, (obj1, obj2) => {
+            if(keyNum > 0){
+            obj2.destroy(); // remove coin on overlap
+            console.log("got");
+            }
         });
 
         // setup camera
@@ -99,6 +131,7 @@ class JoeyMapTwo extends Phaser.Scene {
         }
         if(this.p1.body.blocked.down && Phaser.Input.Keyboard.JustDown(cursors.up)) {
             this.p1.body.setVelocityY(this.JUMP_VELOCITY);
+            this.sound.play('jump');
         }
 
         // scene switching / restart

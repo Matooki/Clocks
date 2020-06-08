@@ -1,5 +1,7 @@
-class TiledPlatform extends Phaser.Scene {
-    constructor() {
+class TiledPlatform extends Phaser.Scene
+{
+    constructor()
+    {
         super("tiledPlatformScene");
 
         // variables and settings
@@ -15,7 +17,6 @@ class TiledPlatform extends Phaser.Scene {
         // load assets
         this.load.path = "./assets/";
         this.load.image("1bit_tiles", "FullSheet.png");    // tile sheet
-        this.load.tilemapTiledJSON("map", "Map2.json");    // Tiled JSON file
         this.load.spritesheet("kenney_sheet", "FullSheet.png", {
             frameWidth: 16,
             frameHeight: 16
@@ -23,7 +24,8 @@ class TiledPlatform extends Phaser.Scene {
         this.load.tilemapTiledJSON("platform_map", "Map1.json");    // Tiled JSON file
     }
 
-    create() {
+    create()
+    {
         let keyNum = 0;
         console.log("3");
         // add a tilemap
@@ -35,11 +37,8 @@ class TiledPlatform extends Phaser.Scene {
         const groundLayer = map.createStaticLayer("Ground", tileset, 0, 0);
         const sceneryLayer = map.createStaticLayer("Scenery", tileset, 0, 0);
         
-        // set map collision (two styles: uncomment *one* of the two lines below)
-       //groundLayer.setCollision([19, 20, 21, 67, 69, 120]);
-       groundLayer.setCollisionByProperty({ collides: true });
-        
-        // define a render debug so we can see the tilemap's collision bounds
+        // set map collision
+        groundLayer.setCollisionByProperty({ collides: true });
 
         // setup player
         // place player on map from Tiled object layer data
@@ -53,8 +52,6 @@ class TiledPlatform extends Phaser.Scene {
         this.p1.body.setCollideWorldBounds(true);
         this.p1.scaleY=2;
         this.p1.scaleX=2;
-        
-        /* TO-DO: player animations */
 
         // generate coin objects from object data
         // .createFromObjects(name, id, spriteConfig [, scene])
@@ -73,11 +70,8 @@ class TiledPlatform extends Phaser.Scene {
         // then add the coins to a group
         this.coinGroup = this.add.group(this.coins);
 
-        // set gravity and physics world bounds (so collideWorldBounds works)
- 
-        
+        // set gravity and physics world bounds (so collideWorldBounds works)       
         this.physics.world.gravity.y = 1000;
-
         this.physics.world.bounds.setTo(0, 0, map.widthInPixels, map.heightInPixels);
 
         // create collider(s)/overlap(s)
@@ -85,6 +79,7 @@ class TiledPlatform extends Phaser.Scene {
         this.physics.add.overlap(this.p1, this.coinGroup, (obj1, obj2) => {
             obj2.destroy(); // remove coin on overlap
             keyNum++;
+            this.sound.play('key');
         });
 
         this.doors = map.createFromObjects("Objects", "door", {
@@ -151,6 +146,7 @@ class TiledPlatform extends Phaser.Scene {
         }
         if(this.p1.body.blocked.down && Phaser.Input.Keyboard.JustDown(cursors.up)) {
             this.p1.body.setVelocityY(this.JUMP_VELOCITY);
+            this.sound.play('jump');
         }
 
 
