@@ -28,7 +28,7 @@ class Credits extends Phaser.Scene {
         this.add.text(centerX, centerY + 0 * textSpacer, 'David Pazos-Programming/Level Design/Art', menuConfig).setOrigin(0.5);
         this.add.text(centerX, centerY + 1 * textSpacer, 'Dallas Truong-Programming/Musc/SFX', menuConfig).setOrigin(0.5);
 
-        this.swap = this.input.keyboard.addKey('S');
+        this.swap = this.input.keyboard.addKey('N');
         cursors = this.input.keyboard.createCursorKeys();
         //keyDOWN = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.Down);
     }

@@ -56,6 +56,8 @@ class TiledPlatform extends Phaser.Scene {
         this.p1.body.setSize(this.p1.width/2);
         this.p1.body.setMaxVelocity(this.MAX_X_VEL, this.MAX_Y_VEL);
         this.p1.body.setCollideWorldBounds(true);
+        this.p1.scaleY=2;
+        this.p1.scaleX=2;
         
         /* TO-DO: player animations */
 
@@ -95,8 +97,11 @@ class TiledPlatform extends Phaser.Scene {
         cursors = this.input.keyboard.createCursorKeys();
 
         // enable scene switcher / reload keys
-        this.swap = this.input.keyboard.addKey('S');
+        this.swap = this.input.keyboard.addKey('N');
         this.reload = this.input.keyboard.addKey('R');
+
+        this.shrink=this.input.keyboard.addKey('S');
+        this.grow=this.input.keyboard.addKey('G');
 
         // debug
         //this.scene.start("");
@@ -130,6 +135,22 @@ class TiledPlatform extends Phaser.Scene {
         }
         if(Phaser.Input.Keyboard.JustDown(this.swap)) {
             this.scene.start("JoeyMapOneScene");
+        }
+
+        if(Phaser.Input.Keyboard.JustDown(this.shrink)&&scaley!=1)
+        {
+            scaley=scaley/2;
+            scalex=scalex/2;
+            this.p1.scaleY=scaley;
+            this.p1.scaleX=scalex;
+        }
+
+        if(Phaser.Input.Keyboard.JustDown(this.grow)&&scaley!=4)
+        {
+            scaley=scaley*2;
+            scalex=scalex*2;
+            this.p1.scaleY=scaley;
+            this.p1.scaleX=scalex;
         }
     }
 }

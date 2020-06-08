@@ -5,8 +5,8 @@ class Menu extends Phaser.Scene {
 
     preload()
     {
-        //this.load.audio('jump', './assets/Jump.wav');
-        //this.load.audio('coin', './assets/coin.wav');
+        this.load.audio('jump', './assets/Jump.wav');
+        this.load.audio('key', './assets/key.wav');
         this.load.audio('song', './assets/Clockwork_Confusion.wav');
     }
 
@@ -33,10 +33,11 @@ class Menu extends Phaser.Scene {
 
         this.add.text(centerX, centerY- textSpacer, 'Clockwork', menuConfig).setOrigin(0.5);
         this.add.text(centerX, centerY + 0 * textSpacer, 'Use Arrow Keys to move', menuConfig).setOrigin(0.5);
-        this.add.text(centerX, centerY + 1 * textSpacer, 'Press s to switch scenes', menuConfig).setOrigin(0.5);
+        this.add.text(centerX, centerY + 1 * textSpacer, '(S)hrink with S-(G)row with G', menuConfig).setOrigin(0.5);
+        this.add.text(centerX, centerY + 2 * textSpacer, 'Go to (N)ext scene with N', menuConfig).setOrigin(0.5);
 
-        this.swap = this.input.keyboard.addKey('S');
         cursors = this.input.keyboard.createCursorKeys();
+        this.swap = this.input.keyboard.addKey('N');
         //keyDOWN = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.Down);
 
         music = this.sound.add('song');
