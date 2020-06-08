@@ -24,6 +24,7 @@ class TiledPlatform extends Phaser.Scene {
     }
 
     create() {
+        let keyNum = 0;
         console.log("3");
         // add a tilemap
         const map = this.add.tilemap("platform_map");
@@ -39,12 +40,6 @@ class TiledPlatform extends Phaser.Scene {
        groundLayer.setCollisionByProperty({ collides: true });
         
         // define a render debug so we can see the tilemap's collision bounds
-        //const debugGraphics = this.add.graphics().setAlpha(0.75);
-        //groundLayer.renderDebug(debugGraphics, {
-            //tileColor: null,    // color of non-colliding tiles
-            //collidingTileColor: new Phaser.Display.Color(243, 134, 48, 255),    // color of colliding tiles
-            //faceColor: new Phaser.Display.Color(40, 39, 37, 255)                // color of colliding face edges
-        //});
 
         // setup player
         // place player on map from Tiled object layer data
@@ -65,7 +60,7 @@ class TiledPlatform extends Phaser.Scene {
         // .createFromObjects(name, id, spriteConfig [, scene])
         this.coins = map.createFromObjects("Objects", "coin", {
             key: "kenney_sheet",
-            frame: 214
+            frame: 7298
         }, this);
         // createFromObjects can't add Physics Sprites, so we add physics manually
         // https://photonstorm.github.io/phaser3-docs/Phaser.Physics.Arcade.World.html#enable__anchor
@@ -79,13 +74,42 @@ class TiledPlatform extends Phaser.Scene {
         this.coinGroup = this.add.group(this.coins);
 
         // set gravity and physics world bounds (so collideWorldBounds works)
+ 
+        
         this.physics.world.gravity.y = 1000;
+
         this.physics.world.bounds.setTo(0, 0, map.widthInPixels, map.heightInPixels);
 
         // create collider(s)/overlap(s)
         this.physics.add.collider(this.p1, groundLayer);
         this.physics.add.overlap(this.p1, this.coinGroup, (obj1, obj2) => {
             obj2.destroy(); // remove coin on overlap
+            keyNum++;
+        });
+
+        this.doors = map.createFromObjects("Objects", "door", {
+            key: "kenney_sheet",
+            frame: 8421
+        }, this);
+
+        this.physics.world.enable(this.doors, Phaser.Physics.Arcade.STATIC_BODY);
+        // now use JS .map method to set a more accurate circle body on each sprite
+        this.doors.map((door) => {
+            door.body.setCircle(4).setOffset(4, 4); 
+        });
+        // then add the coins to a group
+        this.doorGroup = this.add.group(this.doors);
+
+        // set gravity and physics world bounds (so collideWorldBounds works)
+        //this.physics.world.gravity.y = 1750;
+        //this.physics.world.bounds.setTo(0, 0, map.widthInPixels, map.heightInPixels);
+
+        // create collider(s)/overlap(s)
+        this.physics.add.overlap(this.p1, this.doorGroup, (obj1, obj2) => {
+            if(keyNum > 0){
+            obj2.destroy(); // remove coin on overlap
+            console.log("got");
+            }
         });
 
         // setup camera
@@ -128,6 +152,7 @@ class TiledPlatform extends Phaser.Scene {
         if(this.p1.body.blocked.down && Phaser.Input.Keyboard.JustDown(cursors.up)) {
             this.p1.body.setVelocityY(this.JUMP_VELOCITY);
         }
+
 
         // scene switching / restart
         if(Phaser.Input.Keyboard.JustDown(this.reload)) {
