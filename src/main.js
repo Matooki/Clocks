@@ -24,7 +24,7 @@ let config = {
             //debug: true,
         }
     },
-    scene: [ ArrayMap, RandomMap, TiledSimple, TiledPlatform, ParallaxLayers, JoeyMapOne, JoeyMapTwo, SpawnMap, TilePainter, SimpleAnimation, ]
+    scene: [Menu, ArrayMap, RandomMap, TiledSimple, TiledPlatform, ParallaxLayers, JoeyMapOne, JoeyMapTwo, SpawnMap, TilePainter, SimpleAnimation, Credits]
 };
 
 const game = new Phaser.Game(config);
@@ -35,3 +35,4 @@ const centerY = game.config.height / 2;
 const w = game.config.width;
 const h = game.config.h;
 let cursors = null;
+var music;

@@ -4,10 +4,10 @@ class JoeyMapTwo extends Phaser.Scene {
 
         // variables and settings
         this.ACCELERATION = 500;
-        this.MAX_X_VEL = 200;
+        this.MAX_X_VEL = 200;   // pixels/second
         this.MAX_Y_VEL = 2000;
-        this.DRAG = 600;    
-        this.JUMP_VELOCITY = -650;
+        this.DRAG = 1000;    
+        this.JUMP_VELOCITY = -500;
     }
 
     preload() {
@@ -19,13 +19,13 @@ class JoeyMapTwo extends Phaser.Scene {
     create() {
         console.log("10");
         // add a tile map
-        const map = this.add.tilemap("joey2_map"); 
+        const map = this.add.tilemap("joey2_map");
         // add a tile set to the map
         const tileset = map.addTilesetImage("fullsheet_pack", "1bit_tiles");
         // create a static layer (ie, can't be modified)
         // these have scroll factors set to create JoeyMapTwo layer scrolling
-        const bgLayer = map.createStaticLayer("Background", tileset, 0, 0).setScrollFactor(0.25);
-        const sceneryLayer = map.createStaticLayer("Scenery", tileset, 0, 0).setScrollFactor(0.5);
+        const bgLayer = map.createStaticLayer("Background", tileset, 0, 0);
+        const sceneryLayer = map.createStaticLayer("Scenery", tileset, 0, 0);
         const groundLayer = map.createStaticLayer("Ground", tileset, 0, 0);
 
         // set map collision
@@ -53,7 +53,7 @@ class JoeyMapTwo extends Phaser.Scene {
         this.coinGroup = this.add.group(this.coins);
 
         // set gravity and physics world bounds (so collideWorldBounds works)
-        this.physics.world.gravity.y = 2000;
+        this.physics.world.gravity.y = 1200;
         this.physics.world.bounds.setTo(0, 0, map.widthInPixels, map.heightInPixels);
 
         // create collider(s)/overlap(s)
@@ -101,7 +101,7 @@ class JoeyMapTwo extends Phaser.Scene {
             this.scene.restart();
         }
         if(Phaser.Input.Keyboard.JustDown(this.swap)) {
-            this.scene.start("spawnMapScene");
+            this.scene.start("creditsScene");
         }
     }
 }
