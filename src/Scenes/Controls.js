@@ -19,21 +19,6 @@ class Controls extends Phaser.Scene {
         this.swap = this.input.keyboard.addKey('N');
         this.controls = this.input.keyboard.addKey('I');
         //keyDOWN = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.Down);
-
-        music = this.sound.add('song');
-
-        let musicconfig=
-        {
-            mute: false,
-            volume: 1,
-            rate: 1,
-            detune: 0,
-            seek: 0,
-            loop: true,
-            delay: 0   
-        }
-
-        music.play(musicconfig);
     }
 
     update()
@@ -41,6 +26,7 @@ class Controls extends Phaser.Scene {
     
         if (Phaser.Input.Keyboard.JustDown(this.controls))
         {
+            music.stop(config);
             this.scene.start('menuScene');
         }
     } 
