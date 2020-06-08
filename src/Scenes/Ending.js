@@ -3,13 +3,16 @@ class Ending extends Phaser.Scene {
         super("endingScene");
     }
 
+    preload(){
+        this.load.image('back', './assets/final_back.png');
+    }
     create()
     {
         // display mennu
         let menuConfig = {
             fontFamily: 'fantasy',
             fontSize: '16px',
-            backgroundColor: '#7aa1a0',
+           
             color: '#7b348c',
             align: 'center',
             padding: {
@@ -24,10 +27,11 @@ class Ending extends Phaser.Scene {
         let centerY = game.config.height/2;
         let textSpacer = 54;
 
+        this.add.image(0, 0, 'back').setOrigin(0,0).setScale(.2,.3);
         this.add.text(centerX, centerY- textSpacer, 'Congratulations', menuConfig).setOrigin(0.5);
         this.add.text(centerX, centerY + 0 * textSpacer, 'You fixed the clock', menuConfig).setOrigin(0.5);
-        this.add.text(centerX, centerY + 1 * textSpacer, 'For now', menuConfig).setOrigin(0.5);
-        this.add.text(centerX, centerY + 1 * textSpacer, 'Press N to return to continue', menuConfig).setOrigin(0.5);
+        this.add.text(centerX, centerY + 1 * textSpacer, 'Or did you? Time Master will return', menuConfig).setOrigin(0.5);
+        this.add.text(centerX, centerY + 2 * textSpacer, 'Press N to return and continue', menuConfig).setOrigin(0.5);
 
         this.swap = this.input.keyboard.addKey('N');
         cursors = this.input.keyboard.createCursorKeys();

@@ -270,7 +270,7 @@ class JoeyMapOne extends Phaser.Scene
         this.ladderGroup = this.add.group(this.ladders);
 
         this.physics.add.overlap(this.p1, this.ladderGroup, (obj1, obj2) => {
-            this.scene.start("JoeyMapTwoScene");
+            this.scene.start("endingScene");
         });
 
         // setup camera
@@ -335,7 +335,7 @@ class JoeyMapOne extends Phaser.Scene
             this.scene.restart();
         }
         if(Phaser.Input.Keyboard.JustDown(this.swap)) {
-            this.scene.start("JoeyMapTwoScene");
+            this.scene.start("endingScene");
         }
     
         if(Phaser.Input.Keyboard.JustDown(this.shrink)&&scaley!=1)
