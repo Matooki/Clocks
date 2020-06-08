@@ -40,16 +40,6 @@ class TiledPlatform extends Phaser.Scene {
        groundLayer.setCollisionByProperty({ collides: true });
         
         // define a render debug so we can see the tilemap's collision bounds
-<<<<<<< HEAD
-        
-=======
-        //const debugGraphics = this.add.graphics().setAlpha(0.75);
-        //groundLayer.renderDebug(debugGraphics, {
-            //tileColor: null,    // color of non-colliding tiles
-            //collidingTileColor: new Phaser.Display.Color(243, 134, 48, 255),    // color of colliding tiles
-            //faceColor: new Phaser.Display.Color(40, 39, 37, 255)                // color of colliding face edges
-        //});
->>>>>>> 238d29ffa91b6fa02002600309a1a837e992db39
 
         // setup player
         // place player on map from Tiled object layer data
@@ -82,11 +72,10 @@ class TiledPlatform extends Phaser.Scene {
         this.coinGroup = this.add.group(this.coins);
 
         // set gravity and physics world bounds (so collideWorldBounds works)
-<<<<<<< HEAD
-        this.physics.world.gravity.y = 1750;
-=======
+ 
+        
         this.physics.world.gravity.y = 1000;
->>>>>>> 238d29ffa91b6fa02002600309a1a837e992db39
+
         this.physics.world.bounds.setTo(0, 0, map.widthInPixels, map.heightInPixels);
 
         // create collider(s)/overlap(s)
