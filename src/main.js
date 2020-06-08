@@ -36,6 +36,7 @@ const w = game.config.width;
 const h = game.config.h;
 let cursors = null;
 var music;
+var music2;
 var scalex=2;
 var scaley=2;
 var doorTime = 700;

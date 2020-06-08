@@ -29,7 +29,6 @@ class JoeyMapOne extends Phaser.Scene
         //number of keys
         let keyNum = 0;
         //doorTime = 0;
-        console.log("10");
         // add a tilemap
         const map = this.add.tilemap("platform_map3");
         // add a tileset to the map
@@ -105,7 +104,6 @@ class JoeyMapOne extends Phaser.Scene
         this.physics.add.overlap(this.p1, this.doorGroup, (obj1, obj2) => {
             if(keyNum > 0){
                 obj2.destroy(); // remove coin on overlap
-                console.log("got");
                 keyNum-=1;
             }
             else{
@@ -182,7 +180,6 @@ class JoeyMapOne extends Phaser.Scene
                             key: "kenney_sheet",
                             frame: 8419
                         }, this);
-                    console.log("got");
                     
                     
                         this.physics.add.collider(this.p1, this.plateGroup);
@@ -213,7 +210,6 @@ class JoeyMapOne extends Phaser.Scene
                             key: "kenney_sheet",
                             frame: 8419
                         }, this);
-                    console.log("got");
                     
                     
                         this.physics.add.collider(this.p1, this.plateGroup);
@@ -247,7 +243,7 @@ class JoeyMapOne extends Phaser.Scene
                     key: "kenney_sheet",
                     frame: 8419
                 }, this);
-            console.log("got");
+
             
             
                 this.physics.add.collider(this.p1, this.plateGroup);
@@ -305,7 +301,6 @@ class JoeyMapOne extends Phaser.Scene
         }
 
         
-        console.log(doorTime);
         // player movement
         if(cursors.left.isDown) {
             this.p1.body.setAccelerationX(-this.ACCELERATION);

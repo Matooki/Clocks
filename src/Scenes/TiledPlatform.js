@@ -27,7 +27,6 @@ class TiledPlatform extends Phaser.Scene
     create()
     {
         let keyNum = 0;
-        console.log("3");
         // add a tilemap
         const map = this.add.tilemap("platform_map");
         // add a tileset to the map
@@ -104,7 +103,6 @@ class TiledPlatform extends Phaser.Scene
         this.physics.add.overlap(this.p1, this.doorGroup, (obj1, obj2) => {
             if(keyNum > 0){
                 obj2.destroy(); // remove coin on overlap
-                console.log("got");
                 keyNum-=1;
             }
             else{

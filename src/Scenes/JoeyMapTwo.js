@@ -22,7 +22,6 @@ class JoeyMapTwo extends Phaser.Scene
     create()
     {
         let keyNum = 0;
-        console.log("10");
         // add a tile map
         const map = this.add.tilemap("joey2_map");
         // add a tile set to the map
@@ -92,7 +91,6 @@ class JoeyMapTwo extends Phaser.Scene
         this.physics.add.overlap(this.p1, this.doorGroup, (obj1, obj2) => {
             if(keyNum > 0){
                 obj2.destroy(); // remove coin on overlap
-                console.log("got");
                 keyNum-=1;
             }
             else{
@@ -169,7 +167,6 @@ class JoeyMapTwo extends Phaser.Scene
                             key: "kenney_sheet",
                             frame: 8419
                         }, this);
-                    console.log("got");
                     
                     
                         this.physics.add.collider(this.p1, this.plateGroup);
@@ -200,7 +197,6 @@ class JoeyMapTwo extends Phaser.Scene
                             key: "kenney_sheet",
                             frame: 8419
                         }, this);
-                    console.log("got");
                     
                     
                         this.physics.add.collider(this.p1, this.plateGroup);
@@ -234,7 +230,6 @@ class JoeyMapTwo extends Phaser.Scene
                     key: "kenney_sheet",
                     frame: 8419
                 }, this);
-            console.log("got");
             
             
                 this.physics.add.collider(this.p1, this.plateGroup);

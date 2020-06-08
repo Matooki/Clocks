@@ -22,6 +22,7 @@ class MapTwo extends Phaser.Scene
             frameHeight: 16
         });
         this.load.tilemapTiledJSON("platform_map2", "Map2.json");    // Tiled JSON file
+        this.load.audio('timer', './assets/timer.wav');
     }
 
     create()
@@ -29,7 +30,7 @@ class MapTwo extends Phaser.Scene
         //number of keys
         let keyNum = 0;
         //doorTime = 0;
-        console.log("10");
+        
         // add a tilemap
         const map = this.add.tilemap("platform_map2");
         // add a tileset to the map
@@ -105,7 +106,6 @@ class MapTwo extends Phaser.Scene
         this.physics.add.overlap(this.p1, this.doorGroup, (obj1, obj2) => {
             if(keyNum > 0){
                 obj2.destroy(); // remove coin on overlap
-                console.log("got");
                 keyNum-=1;
             }
             else{
@@ -182,7 +182,6 @@ class MapTwo extends Phaser.Scene
                             key: "kenney_sheet",
                             frame: 8419
                         }, this);
-                    console.log("got");
                     
                     
                         this.physics.add.collider(this.p1, this.plateGroup);
@@ -213,7 +212,7 @@ class MapTwo extends Phaser.Scene
                             key: "kenney_sheet",
                             frame: 8419
                         }, this);
-                    console.log("got");
+                    
                     
                     
                         this.physics.add.collider(this.p1, this.plateGroup);
@@ -243,11 +242,12 @@ class MapTwo extends Phaser.Scene
             down = true;
             obj2.destroy();
             
+            
                 this.plates = map.createFromObjects("Objects", "plate", {
                     key: "kenney_sheet",
                     frame: 8419
                 }, this);
-            console.log("got");
+            
             
             
                 this.physics.add.collider(this.p1, this.plateGroup);
@@ -290,6 +290,17 @@ class MapTwo extends Phaser.Scene
 
         // debug
         //this.scene.start("");
+        music2 = this.sound.add('timer');
+        let musicconfig2=
+        {
+            mute: false,
+            volume: 1,
+            rate: 1,
+            detune: 0,
+            seek: 0,
+            loop: true,
+            delay: 0   
+        }
     }
 
     update() {
@@ -297,6 +308,7 @@ class MapTwo extends Phaser.Scene
         
         if (down){
         doorTime--;
+        
         }
 
         if(doorTime < 0){
@@ -305,7 +317,7 @@ class MapTwo extends Phaser.Scene
         }
 
         
-        console.log(doorTime);
+        
         // player movement
         if(cursors.left.isDown) {
             this.p1.body.setAccelerationX(-this.ACCELERATION);

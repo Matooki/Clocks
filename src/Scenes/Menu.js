@@ -11,6 +11,7 @@ class Menu extends Phaser.Scene {
         this.load.audio('grow', './assets/Grow.wav');
         this.load.audio('shrink', './assets/Shrink.wav');
         this.load.audio('song', './assets/Clockwork_Confusion.wav');
+        this.load.audio('timer', './assets/timer.wav');
     }
 
     create()
