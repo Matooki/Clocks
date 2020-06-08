@@ -76,6 +76,7 @@ class TiledPlatform extends Phaser.Scene
 
         // create collider(s)/overlap(s)
         this.physics.add.collider(this.p1, groundLayer);
+        
         this.physics.add.overlap(this.p1, this.coinGroup, (obj1, obj2) => {
             obj2.destroy(); // remove coin on overlap
             keyNum++;
@@ -105,6 +106,27 @@ class TiledPlatform extends Phaser.Scene
             obj2.destroy(); // remove coin on overlap
             console.log("got");
             }
+            else{
+                this.physics.add.collider(this.p1, this.doorGroup);
+            }
+        });
+
+
+        this.ladders = map.createFromObjects("Objects", "ladder", {
+            key: "kenney_sheet",
+            frame: 8422
+        }, this);
+
+        this.physics.world.enable(this.ladders, Phaser.Physics.Arcade.STATIC_BODY);
+        // now use JS .map method to set a more accurate circle body on each sprite
+        this.ladders.map((ladder) => {
+            ladder.body.setCircle(4).setOffset(4, 4); 
+        });
+        // then add the coins to a group
+        this.ladderGroup = this.add.group(this.ladders);
+
+        this.physics.add.overlap(this.p1, this.ladderGroup, (obj1, obj2) => {
+            this.scene.start("mapTwoScene");
         });
 
         // setup camera
@@ -155,7 +177,7 @@ class TiledPlatform extends Phaser.Scene
             this.scene.restart();
         }
         if(Phaser.Input.Keyboard.JustDown(this.swap)) {
-            this.scene.start("JoeyMapOneScene");
+            this.scene.start("mapTwoScene");
         }
 
         if(Phaser.Input.Keyboard.JustDown(this.shrink)&&scaley!=1)
