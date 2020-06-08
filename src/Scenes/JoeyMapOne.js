@@ -21,15 +21,17 @@ class JoeyMapOne extends Phaser.Scene
             frameWidth: 16,
             frameHeight: 16
         });
-        this.load.tilemapTiledJSON("platform_map2", "Joeymap1.json");    // Tiled JSON file
+        this.load.tilemapTiledJSON("platform_map3", "Joeymap1.json");    // Tiled JSON file
     }
 
     create()
     {
+        //number of keys
         let keyNum = 0;
+        //doorTime = 0;
         console.log("10");
         // add a tilemap
-        const map = this.add.tilemap("platform_map2");
+        const map = this.add.tilemap("platform_map3");
         // add a tileset to the map
         const tileset = map.addTilesetImage("FullSheet", "1bit_tiles");
         // create tilemap layers
@@ -111,6 +113,166 @@ class JoeyMapOne extends Phaser.Scene
             }
         });
 
+        //creates bottom half of sliding door
+        this.slides = map.createFromObjects("Objects", "slide", {
+            key: "kenney_sheet",
+            frame: 7861
+        }, this);
+
+        this.physics.world.enable(this.slides, Phaser.Physics.Arcade.STATIC_BODY);
+        // now use JS .map method to set a more accurate circle body on each sprite
+        this.slides.map((slide) => {
+            slide.body.setCircle(8).setOffset(4, 4); 
+        });
+        // then add the coins to a group
+        this.slideGroup = this.add.group(this.slides);
+
+        
+        this.physics.add.overlap(this.p1, this.slideGroup, (obj1, obj2) => {
+
+            if(doorTime < 700){
+                obj2.destroy();
+            }
+            
+                this.physics.add.collider(this.p1, this.slideGroup);
+            
+        });
+
+      
+       
+
+
+        //creates top half of sliding door
+        this.tops = map.createFromObjects("Objects", "top", {
+            key: "kenney_sheet",
+            frame: 7674
+        }, this);
+
+        this.physics.world.enable(this.tops, Phaser.Physics.Arcade.STATIC_BODY);
+        // now use JS .map method to set a more accurate circle body on each sprite
+        this.tops.map((top) => {
+            top.body.setCircle(8).setOffset(4, 4); 
+        });
+        // then add the coins to a group
+        this.topGroup = this.add.group(this.tops);
+
+       
+        this.physics.add.overlap(this.p1, this.topGroup, (obj1, obj2) => {
+            if(doorTime < 700){
+                obj2.destroy();
+                this.plates = map.createFromObjects("Objects", "plate", {
+                    key: "kenney_sheet",
+                    frame: 8420
+                }, this);
+        
+                this.physics.world.enable(this.plates, Phaser.Physics.Arcade.STATIC_BODY);
+                // now use JS .map method to set a more accurate circle body on each sprite
+                this.plates.map((plate) => {
+                    plate.body.setCircle(4).setOffset(4, 4); 
+                });
+                // then add the coins to a group
+                this.plateGroup = this.add.group(this.plates);
+        
+                this.physics.add.overlap(this.p1, this.plateGroup, (obj1, obj2) => {
+                    
+                    down = true;
+                    obj2.destroy();
+                    
+                        this.plates = map.createFromObjects("Objects", "plate", {
+                            key: "kenney_sheet",
+                            frame: 8419
+                        }, this);
+                    console.log("got");
+                    
+                    
+                        this.physics.add.collider(this.p1, this.plateGroup);
+                    
+                });
+            }
+                this.physics.add.collider(this.p1, this.topGroup);
+
+                this.plates = map.createFromObjects("Objects", "plate", {
+                    key: "kenney_sheet",
+                    frame: 8420
+                }, this);
+        
+                this.physics.world.enable(this.plates, Phaser.Physics.Arcade.STATIC_BODY);
+                // now use JS .map method to set a more accurate circle body on each sprite
+                this.plates.map((plate) => {
+                    plate.body.setCircle(4).setOffset(4, 4); 
+                });
+                // then add the coins to a group
+                this.plateGroup = this.add.group(this.plates);
+        
+                this.physics.add.overlap(this.p1, this.plateGroup, (obj1, obj2) => {
+                    
+                    down = true;
+                    obj2.destroy();
+                    
+                        this.plates = map.createFromObjects("Objects", "plate", {
+                            key: "kenney_sheet",
+                            frame: 8419
+                        }, this);
+                    console.log("got");
+                    
+                    
+                        this.physics.add.collider(this.p1, this.plateGroup);
+                    
+                });
+            
+        });
+
+
+
+        //creates and interacts with pressure plates
+        this.plates = map.createFromObjects("Objects", "plate", {
+            key: "kenney_sheet",
+            frame: 8420
+        }, this);
+
+        this.physics.world.enable(this.plates, Phaser.Physics.Arcade.STATIC_BODY);
+        // now use JS .map method to set a more accurate circle body on each sprite
+        this.plates.map((plate) => {
+            plate.body.setCircle(4).setOffset(4, 4); 
+        });
+        // then add the coins to a group
+        this.plateGroup = this.add.group(this.plates);
+
+        this.physics.add.overlap(this.p1, this.plateGroup, (obj1, obj2) => {
+            doorTime = 700;
+            down = true;
+            obj2.destroy();
+            
+                this.plates = map.createFromObjects("Objects", "plate", {
+                    key: "kenney_sheet",
+                    frame: 8419
+                }, this);
+            console.log("got");
+            
+            
+                this.physics.add.collider(this.p1, this.plateGroup);
+            
+        });
+
+
+        //ladder take you to the next stage
+        this.ladders = map.createFromObjects("Objects", "ladder", {
+            key: "kenney_sheet",
+            frame: 8422
+        }, this);
+
+        this.physics.world.enable(this.ladders, Phaser.Physics.Arcade.STATIC_BODY);
+        // now use JS .map method to set a more accurate circle body on each sprite
+        this.ladders.map((ladder) => {
+            ladder.body.setCircle(4).setOffset(4, 4); 
+        });
+        // then add the coins to a group
+        this.ladderGroup = this.add.group(this.ladders);
+
+        this.physics.add.overlap(this.p1, this.ladderGroup, (obj1, obj2) => {
+            this.scene.start("JoeyMapTwoScene");
+        });
+
         // setup camera
         this.cameras.main.setBounds(0, 0, map.widthInPixels, map.heightInPixels);
         this.cameras.main.startFollow(this.p1, true, 0.25, 0.25); // (target, [,roundPixels][,lerpX][,lerpY])
@@ -131,6 +293,19 @@ class JoeyMapOne extends Phaser.Scene
     }
 
     update() {
+
+        
+        if (down){
+        doorTime--;
+        }
+
+        if(doorTime < 0){
+            down = false;
+            doorTime = 700;
+        }
+
+        
+        console.log(doorTime);
         // player movement
         if(cursors.left.isDown) {
             this.p1.body.setAccelerationX(-this.ACCELERATION);
@@ -143,6 +318,8 @@ class JoeyMapOne extends Phaser.Scene
             this.p1.body.setAccelerationX(0);
             this.p1.body.setDragX(this.DRAG);
         }
+
+        
         // player jump
         // note that we need body.blocked rather than body.touching b/c the former applies to tilemap tiles and the latter to the "ground"
         if(!this.p1.body.blocked.down) {
@@ -178,5 +355,58 @@ class JoeyMapOne extends Phaser.Scene
             this.p1.scaleX=scalex;
             this.sound.play('grow');
         }
+
+        
     }
-}
+
+        //creating door function (doesn't work because of map not being defined here)
+         /*createDoor(){
+            this.slides = map.createFromObjects("Objects", "slide", {
+                key: "kenney_sheet",
+                frame: 7861
+            }, this);
+    
+            this.physics.world.enable(this.slides, Phaser.Physics.Arcade.STATIC_BODY);
+            // now use JS .map method to set a more accurate circle body on each sprite
+            this.slides.map((slide) => {
+                slide.body.setCircle(8).setOffset(4, 4); 
+            });
+            // then add the coins to a group
+            this.slideGroup = this.add.group(this.slides);
+    
+            
+            this.physics.add.overlap(this.p1, this.slideGroup, (obj1, obj2) => {
+    
+                if(doorTime < 1000){
+                    obj2.destroy();
+                }
+                
+                    this.physics.add.collider(this.p1, this.slideGroup);
+                
+            });
+    
+    
+            //creates top half of sliding door
+            this.tops = map.createFromObjects("Objects", "top", {
+                key: "kenney_sheet",
+                frame: 7674
+            }, this);
+    
+            this.physics.world.enable(this.tops, Phaser.Physics.Arcade.STATIC_BODY);
+            // now use JS .map method to set a more accurate circle body on each sprite
+            this.tops.map((top) => {
+                top.body.setCircle(8).setOffset(4, 4); 
+            });
+            // then add the coins to a group
+            this.topGroup = this.add.group(this.tops);
+    
+           
+            this.physics.add.overlap(this.p1, this.topGroup, (obj1, obj2) => {
+                if(doorTime < 1000){
+                    obj2.destroy();
+                }
+                    this.physics.add.collider(this.p1, this.topGroup);
+                
+            });
+        }*/
+    }
