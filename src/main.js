@@ -24,7 +24,7 @@ let config = {
             //debug: true,
         }
     },
-    scene: [Menu, TiledPlatform, JoeyMapOne, JoeyMapTwo, Credits]
+    scene: [Menu, TiledPlatform, JoeyMapOne, JoeyMapTwo, Ending, Credits]
 };
 
 const game = new Phaser.Game(config);

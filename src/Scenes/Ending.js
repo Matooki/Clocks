@@ -1,6 +1,6 @@
-class Credits extends Phaser.Scene {
+class Ending extends Phaser.Scene {
     constructor() {
-        super("creditsScene");
+        super("endingScene");
     }
 
     create()
@@ -24,10 +24,10 @@ class Credits extends Phaser.Scene {
         let centerY = game.config.height/2;
         let textSpacer = 54;
 
-        this.add.text(centerX, centerY- textSpacer, 'Joey Balaoing-Programming/Level Design', menuConfig).setOrigin(0.5);
-        this.add.text(centerX, centerY + 0 * textSpacer, 'David Pazos-Programming/Level Design/Art', menuConfig).setOrigin(0.5);
-        this.add.text(centerX, centerY + 1 * textSpacer, 'Dallas Truong-Programming/Musc/SFX', menuConfig).setOrigin(0.5);
-        this.add.text(centerX, centerY + 1 * textSpacer, 'Press N to return to Menu', menuConfig).setOrigin(0.5);
+        this.add.text(centerX, centerY- textSpacer, 'Congratulations', menuConfig).setOrigin(0.5);
+        this.add.text(centerX, centerY + 0 * textSpacer, 'You fixed the clock', menuConfig).setOrigin(0.5);
+        this.add.text(centerX, centerY + 1 * textSpacer, 'For now', menuConfig).setOrigin(0.5);
+        this.add.text(centerX, centerY + 1 * textSpacer, 'Press N to return to continue', menuConfig).setOrigin(0.5);
 
         this.swap = this.input.keyboard.addKey('N');
         cursors = this.input.keyboard.createCursorKeys();
@@ -39,7 +39,7 @@ class Credits extends Phaser.Scene {
         if (Phaser.Input.Keyboard.JustDown(this.swap))
         {
             music.stop(config);
-            this.scene.start('menuScene');
+            this.scene.start('creditsScene');
         }
     } 
 }
