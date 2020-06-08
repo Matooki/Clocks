@@ -24,7 +24,7 @@ let config = {
             //debug: true,
         }
     },
-    scene: [Menu, TiledPlatform, MapTwo, JoeyMapOne, JoeyMapTwo, Ending, Credits]
+    scene: [Menu, TiledPlatform, MapTwo, JoeyMapOne, JoeyMapTwo, Ending, Credits, Controls]
 };
 
 const game = new Phaser.Game(config);
@@ -38,5 +38,5 @@ let cursors = null;
 var music;
 var scalex=2;
 var scaley=2;
-var doorTime = 1000;
+var doorTime = 700;
 var down = false;

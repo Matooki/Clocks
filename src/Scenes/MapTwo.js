@@ -130,13 +130,16 @@ class MapTwo extends Phaser.Scene
         
         this.physics.add.overlap(this.p1, this.slideGroup, (obj1, obj2) => {
 
-            if(doorTime < 1000){
+            if(doorTime < 700){
                 obj2.destroy();
             }
             
                 this.physics.add.collider(this.p1, this.slideGroup);
             
         });
+
+      
+       
 
 
         //creates top half of sliding door
@@ -155,10 +158,67 @@ class MapTwo extends Phaser.Scene
 
        
         this.physics.add.overlap(this.p1, this.topGroup, (obj1, obj2) => {
-            if(doorTime < 1000){
+            if(doorTime < 700){
                 obj2.destroy();
+                this.plates = map.createFromObjects("Objects", "plate", {
+                    key: "kenney_sheet",
+                    frame: 8420
+                }, this);
+        
+                this.physics.world.enable(this.plates, Phaser.Physics.Arcade.STATIC_BODY);
+                // now use JS .map method to set a more accurate circle body on each sprite
+                this.plates.map((plate) => {
+                    plate.body.setCircle(4).setOffset(4, 4); 
+                });
+                // then add the coins to a group
+                this.plateGroup = this.add.group(this.plates);
+        
+                this.physics.add.overlap(this.p1, this.plateGroup, (obj1, obj2) => {
+                    
+                    down = true;
+                    obj2.destroy();
+                    
+                        this.plates = map.createFromObjects("Objects", "plate", {
+                            key: "kenney_sheet",
+                            frame: 8419
+                        }, this);
+                    console.log("got");
+                    
+                    
+                        this.physics.add.collider(this.p1, this.plateGroup);
+                    
+                });
             }
                 this.physics.add.collider(this.p1, this.topGroup);
+
+                this.plates = map.createFromObjects("Objects", "plate", {
+                    key: "kenney_sheet",
+                    frame: 8420
+                }, this);
+        
+                this.physics.world.enable(this.plates, Phaser.Physics.Arcade.STATIC_BODY);
+                // now use JS .map method to set a more accurate circle body on each sprite
+                this.plates.map((plate) => {
+                    plate.body.setCircle(4).setOffset(4, 4); 
+                });
+                // then add the coins to a group
+                this.plateGroup = this.add.group(this.plates);
+        
+                this.physics.add.overlap(this.p1, this.plateGroup, (obj1, obj2) => {
+                    
+                    down = true;
+                    obj2.destroy();
+                    
+                        this.plates = map.createFromObjects("Objects", "plate", {
+                            key: "kenney_sheet",
+                            frame: 8419
+                        }, this);
+                    console.log("got");
+                    
+                    
+                        this.physics.add.collider(this.p1, this.plateGroup);
+                    
+                });
             
         });
 
@@ -179,7 +239,7 @@ class MapTwo extends Phaser.Scene
         this.plateGroup = this.add.group(this.plates);
 
         this.physics.add.overlap(this.p1, this.plateGroup, (obj1, obj2) => {
-            
+            doorTime = 700;
             down = true;
             obj2.destroy();
             
@@ -238,11 +298,13 @@ class MapTwo extends Phaser.Scene
         if (down){
         doorTime--;
         }
+
         if(doorTime < 0){
             down = false;
-            doorTime = 1000;
-            this.createDoor();
+            doorTime = 700;
         }
+
+        
         console.log(doorTime);
         // player movement
         if(cursors.left.isDown) {
@@ -293,6 +355,8 @@ class MapTwo extends Phaser.Scene
             this.p1.scaleX=scalex;
             this.sound.play('grow');
         }
+
+        
     }
 
         //creating door function (doesn't work because of map not being defined here)
